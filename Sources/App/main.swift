@@ -1,6 +1,7 @@
 import Vapor
 import VaporPostgreSQL
-//import Foundation
+import Foundation
+import HTTP
 
 let drop = Droplet()
 drop.preparations.append(Friend.self)
@@ -10,6 +11,8 @@ do {
 } catch {
     assertionFailure("Error adding provider: \(error)")
 }
+
+drop.client = FoundationClient.self
 
 drop.get("friends") { req in
     let friends = try Friend.all().makeNode()
