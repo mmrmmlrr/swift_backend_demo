@@ -11,8 +11,6 @@ do {
     assertionFailure("Error adding provider: \(error)")
 }
 
-//drop.client = FoundationClient.self
-
 drop.get("friends") { req in
     let friends = try Friend.all().makeNode()
     let friendsDictionoary = ["friends": friends]
@@ -20,7 +18,6 @@ drop.get("friends") { req in
 }
 
 drop.post("friend") { req in
-    print(req.json)
     var friend = try Friend(node: req.json)
     try friend.save()
     
