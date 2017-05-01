@@ -4,6 +4,7 @@ import Foundation
 import HTTP
 
 let drop = Droplet()
+drop.client = FoundationClient.self
 drop.preparations.append(Friend.self)
 
 do {
@@ -12,7 +13,6 @@ do {
     assertionFailure("Error adding provider: \(error)")
 }
 
-drop.client = FoundationClient.self
 
 drop.get("friends") { req in
     let friends = try Friend.all().makeNode()
