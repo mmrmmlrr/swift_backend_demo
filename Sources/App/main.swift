@@ -31,12 +31,9 @@ drop.get("surveys.json") { req in
             }
         }
 
-//        if let error = params["error"] as? NSError {
-//            throw error
-////            return NSError(domain: "error", code: 303, userInfo: nil)
-//        }
-//    } else {
-//        throw NSError(domain: "test error domain", code: 123, userInfo: nil)
+        if let error = params["error"] as? NSError {
+            throw error
+        }
     }
     
 
