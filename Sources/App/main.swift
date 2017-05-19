@@ -28,21 +28,29 @@ drop.get("friends") { req in
 drop.get("surveys.json") { req in
     var responseArray = [Survey]()
     
-    if let params = req.parameters["debug_parameters"]?.object {
-        if let count = params["count"]?.int {
-            for _ in 0..<count {
-                responseArray.append(Survey.random())
-            }
-        }
+    print(req.body)
 
-        if let error = params["error"] as? NSError {
-            return try JSON(node: [
-                "error": true,
-                "message": "Something went wrong.",
-                "code": 500
-                ])
-        }
-    }
+//    let debugParams = req.query?["debug_parameters"]
+    
+    
+    let count = req.query?["count"]?.int ?? 1
+//    if let params = req.query?.object {
+//        if let debugParams = params["debug_parameters"]?.object {
+//            if let count = debugParams["count"]?.int {
+                for _ in 0..<count {
+                    responseArray.append(Survey.random())
+                }
+//            }
+//        }
+
+//        if let error = req.query["error"]?.object {
+//            return try JSON(node: [
+//                "error": true,
+//                "message": error["message"]?.string ?? "",
+//                "code": error["code"]?.int ?? 0
+//                ])
+//        }
+//    }
 
     return try JSON(node: responseArray)
 }
