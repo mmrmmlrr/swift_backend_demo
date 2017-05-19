@@ -28,8 +28,8 @@ drop.get("friends") { req in
 drop.get("surveys.json") { req in
     var responseArray = [Survey]()
     
-    if let params = req.parameters["debug_parameters"]?.object as [String: AnyObject]? {
-        if let count = params["count"] as? Int {
+    if let params = req.parameters["debug_parameters"]?.object {
+        if let count = params["count"]?.int {
             for _ in 0..<count {
                 responseArray.append(Survey.random())
             }
