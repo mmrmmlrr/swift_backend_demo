@@ -22,6 +22,16 @@ drop.get("friends") { req in
 }
 
 drop.get("surveys.json") { req in
+    if let params = req.parameters["debug_parameters"] as? [String: AnyObject] {
+
+        if let error = params["error"] as? NSError {
+            throw error
+//            return NSError(domain: "error", code: 303, userInfo: nil)
+        }
+    } else {
+        throw NSError(domain: "test error domain", code: 123, userInfo: nil)
+    }
+    
     
     let surveys: [Survey] = [Survey(title: "Red Planet",
                                     coverImageUrl: "http://dreamatico.com/data_images/hotels/hotels-3.jpg",
