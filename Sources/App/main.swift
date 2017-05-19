@@ -23,8 +23,16 @@ drop.get("friends") { req in
 
 drop.get("surveys.json") { req in
     
-    let surveys = [Survey(title: "Hotel Red Planet")]
-    let friendsDictionoary = ["surveys": surveys]
+    let surveys: [Survey] = [Survey(title: "Red Planet",
+                                    coverImageUrl: "http://dreamatico.com/data_images/hotels/hotels-3.jpg",
+                                    description: "Asoke, Bangkok",
+                                    id: Node.string(NSUUID().uuidString)),
+                             Survey(title: "Hilton",
+                                    coverImageUrl: "http://dreamatico.com/data_images/hotels/hotels-2.jpg",
+                                    description: "Sukhumvit, Bangkok",
+                                    id: Node.string(NSUUID().uuidString)),
+    ]
+    
     return try JSON(node: surveys)
 }
 
