@@ -22,28 +22,25 @@ drop.get("friends") { req in
 }
 
 drop.get("surveys.json") { req in
-    if let params = req.parameters["debug_parameters"] as? [String: AnyObject] {
-
-        if let error = params["error"] as? NSError {
-            throw error
-//            return NSError(domain: "error", code: 303, userInfo: nil)
+    var responseArray = [Survey]()
+    
+    if let params = req.parameters["debug_parameters"]?.object as [String: AnyObject]? {
+        if let count = params["count"] as? Int {
+            for _ in 0..<count {
+                responseArray.append(Survey.random())
+            }
         }
-    } else {
-        throw NSError(domain: "test error domain", code: 123, userInfo: nil)
+
+//        if let error = params["error"] as? NSError {
+//            throw error
+////            return NSError(domain: "error", code: 303, userInfo: nil)
+//        }
+//    } else {
+//        throw NSError(domain: "test error domain", code: 123, userInfo: nil)
     }
     
-    
-    let surveys: [Survey] = [Survey(title: "Red Planet",
-                                    coverImageUrl: "http://dreamatico.com/data_images/hotels/hotels-3.jpg",
-                                    description: "Asoke, Bangkok",
-                                    id: Node.string(NSUUID().uuidString)),
-                             Survey(title: "Hilton",
-                                    coverImageUrl: "http://dreamatico.com/data_images/hotels/hotels-2.jpg",
-                                    description: "Sukhumvit, Bangkok",
-                                    id: Node.string(NSUUID().uuidString)),
-    ]
-    
-    return try JSON(node: surveys)
+
+    return try JSON(node: responseArray)
 }
 
 drop.post("friend") { req in
