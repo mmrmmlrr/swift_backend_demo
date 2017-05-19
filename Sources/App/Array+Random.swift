@@ -10,7 +10,10 @@ import Foundation
 
 extension Array {
     func randomElement() -> Element {
-        let index = Int(arc4random_uniform(UInt32(self.count)))
-        return self[index]
+        #if os(Linux)
+            return self[Int(random() % (self.count + 1))]
+        #else
+            return self[Int(arc4random_uniform(UInt32(self.count)))]
+        #endif
     }
 }
