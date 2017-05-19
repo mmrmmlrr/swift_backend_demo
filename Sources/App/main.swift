@@ -21,7 +21,7 @@ drop.get("friends") { req in
     return try JSON(node: friends)
 }
 
-drop.get("surveys") { req in
+drop.get("surveys.json") { req in
     
     let surveys = [Survey(title: "Hotel Red Planet")]
     let friendsDictionoary = ["surveys": surveys]
