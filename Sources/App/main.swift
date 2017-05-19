@@ -2,6 +2,10 @@ import Vapor
 import VaporPostgreSQL
 import Foundation
 import HTTP
+#if os(Linux)
+    import Glibc
+#endif
+
 
 let drop = Droplet()
 drop.client = FoundationClient.self
@@ -32,10 +36,13 @@ drop.get("surveys.json") { req in
         }
 
         if let error = params["error"] as? NSError {
-            throw error
+            return try JSON(node: [
+                "error": true,
+                "message": "Something went wrong.",
+                "code": 500
+                ])
         }
     }
-    
 
     return try JSON(node: responseArray)
 }
